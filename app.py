@@ -49,6 +49,11 @@ def main(page: ft.Page):
 		weight=ft.FontWeight.BOLD,
 	)
 
+	loading_bar=ft.ProgressBar(
+		visible=False,
+		width=400
+	)
+
 	duplicates_list=ft.ListView(
 		expand=1,
 		spacing=10,
@@ -262,6 +267,13 @@ def main(page: ft.Page):
 	def scan_directory(directory):
 		duplicates_list.controls.clear()
 		state["current_duplicates"]=find_duplicates(directory)
+		loading_bar.visible=True
+
+		try:
+			state["current_duplicates"]=find_duplicates(directory)
+		finally:
+			loading_bar.visible=False
+			loading_bar.update()
 
 		if not state["current_duplicates"]:
 			delete_all_buttons.visible=False
@@ -363,6 +375,7 @@ def main(page: ft.Page):
 				),
 				margin=ft.margin.only(bottom=20),
 			),
+			loading_bar,
 			ft.Row([
 				ft.ElevatedButton(
 					text="Select directory ",
