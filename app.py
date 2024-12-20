@@ -268,6 +268,7 @@ def main(page: ft.Page):
 		duplicates_list.controls.clear()
 		state["current_duplicates"]=find_duplicates(directory)
 		loading_bar.visible=True
+		loading_bar.update()
 
 		try:
 			state["current_duplicates"]=find_duplicates(directory)
@@ -375,7 +376,6 @@ def main(page: ft.Page):
 				),
 				margin=ft.margin.only(bottom=20),
 			),
-			loading_bar,
 			ft.Row([
 				ft.ElevatedButton(
 					text="Select directory ",
@@ -390,6 +390,7 @@ def main(page: ft.Page):
 				content=selected_dir_text,
 				margin=ft.margin.only(top=10, bottom=10),
 			),
+			loading_bar,
 			result_text,
 			ft.Container(
 				content=duplicates_list,
